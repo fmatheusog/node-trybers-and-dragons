@@ -1,23 +1,22 @@
 import { EnergyType } from '../Energy';
 import Archetype from './Archetype';
 
-const necromancers: Necromancer[] = [];
-
 class Necromancer extends Archetype {
   private _energyType: EnergyType;
+  private static _instances = 0;
 
   constructor(name: string) {
     super(name);
     this._energyType = 'mana';
-    necromancers.push(this);
+    Necromancer._instances += 1;
   }
 
-  get energyType(): EnergyType {
+  override get energyType(): EnergyType {
     return this._energyType;
   }
 
   static override createdArchetypeInstances(): number {
-    return necromancers.length;
+    return this._instances;
   }
 }
 
